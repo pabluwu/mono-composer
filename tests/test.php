@@ -2,8 +2,15 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use mono\Hello;
+use mono\Monocontact;
 
-$saludando = new Hello();
+$apiurl = 'https://api.monocontact.net';
+$m = new Monocontact('t-token-key', 's-secret-key', $apiurl);
 
-echo $saludando->saludo("Hola desde el composer");
+print_r($m);
+
+
+
+// $saludando = new Monocontact($apikey='asd', $secret='hash256', $apiurl='https://api.monocontact.net/');
+
+// echo $saludando->saludo('api.monocontact.net');

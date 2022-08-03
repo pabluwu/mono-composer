@@ -5,11 +5,9 @@ namespace mono;
 class Monocontact{
 
     private $api_key;
+    private $secret;
     private $curl;
-    private $api_url = 'https://api.monocontact.net/';
-    public function saludo($saludo = "Hello World"){
-        return $saludo;
-    }
+    private $api_url = 'https://api.monocontact.net';
 
     public function __construct($apikey=null, $secret=null, $apiurl=null) {
 		if(!$apikey || !$secret) throw new \Exception('You must provide a Monocontact API key');
@@ -32,9 +30,14 @@ class Monocontact{
 		curl_setopt($this->curl, CURLOPT_TIMEOUT, 600);*/
 
 		$this->listing = new Listing($this);
-		$this->contact = new Contact($this);
+		$this->contact = new Contacto($this);
 		$this->subscriber = new Subscriber($this);
 
 		$this->apiurl = rtrim($this->apiurl, '/') . '/';
 	}
+
+    public function saludo($api_key = null){
+
+        return $this->api_key = $api_key;
+    }
 }
