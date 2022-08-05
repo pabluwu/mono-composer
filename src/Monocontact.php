@@ -40,10 +40,12 @@ class Monocontact{
 
 	public function call($url, $params, $method){
 		curl_setopt($this->curl, CURLOPT_URL, $this->apiurl . $url);
-		
-        // curl_setopt($this->curl, CURLOPT_POSTFIELDS, ['data'=>json_encode($params, JSON_PRETTY_PRINT)]);
-		curl_setopt($this->curl, CURLOPT_HTTPGET, TRUE);
-
+		if ($method == 'get' ){
+			curl_setopt($this->curl, CURLOPT_HTTPGET, TRUE);
+		} elseif ($method == 'post') {
+			curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($params, JSON_PRETTY_PRINT));
+		}        
+		echo json_encode($params, JSON_PRETTY_PRINT);
 		$now = DateTime::createFromFormat('U.u', microtime(true));
 		$local = $now->setTimeZone(new DateTimeZone('America/Santiago'));
 		$token  = $this->apikey;                 // base64_encode(random_bytes(12));
@@ -59,11 +61,13 @@ class Monocontact{
 		echo $sig;
 
 		curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
+			'Content-Type:application/json',
 			"Authorization: Bearer $token",
 			"Sig: $sig",
 			"Stamp: $stamp"
 		]);
 		$server_output = curl_exec($this->curl);
+		print_r($this->curl);
 
 		if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE)!='200') {
 			throw new \Exception($server_output);

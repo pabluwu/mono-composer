@@ -20,7 +20,8 @@ class MonoModel {
 	public function view($id) {
 		if (!$this->model) throw new \Exception('You must enter a model');;
 		$_params = ['model'=>$this->model, 'id'=>$id];
-		return $this->master->call('view', $_params);
+		$url = $this->model.'/'.$id;
+		return $this->master->call($url, $_params, 'get');
 	}
 
 	public function find($columns) {
@@ -31,8 +32,10 @@ class MonoModel {
 
 	public function create($columns) {
 		if (!$this->model) throw new \Exception('You must enter a model');;
-		$_params = ['model'=>$this->model, 'columns'=>$columns];
-		return $this->master->call('create', $_params);
+		$_params = $columns;
+		print_r ($_params);
+		$url = $this->model.'/create';
+		return $this->master->call($url, $_params, 'post');
 	}
 
 }
