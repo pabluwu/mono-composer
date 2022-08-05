@@ -4,6 +4,6 @@ namespace mono;
 
 class Contacto extends MonoModel {
 
-	protected $model = 'contact';
+	protected $model = 'contacto';
 
 }

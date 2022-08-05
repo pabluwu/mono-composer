@@ -4,10 +4,16 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use mono\Monocontact;
 
-$apiurl = 'https://api.monocontact.net';
-$m = new Monocontact('t-token-key', 's-secret-key', $apiurl);
+$apiurl = 'https://api.monocontact.net/v1.1/';
+$m = new Monocontact('t-MduXc11yE5IHD4a5cVt8x4aaG', 's-XxCyXLQFaT58DTSfyZrCCGwg3wIY8USJcnf59NQ7fBjcQmWBRUnNXeWejRkZFRmQH', $apiurl);
 
-print_r($m);
+try {
+    print_r($m->contact->listing());
+    // $m->contact->listing();
+}catch (Exception $e){
+    echo 'Excepción', $e->getMessage(), '\n';
+}
+
 
 
 

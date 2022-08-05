@@ -2,6 +2,8 @@
  
 namespace mono;
 
+use \DateTime;
+use \DateTimeZone;
 class Monocontact{
 
     private $api_key;
@@ -34,6 +36,41 @@ class Monocontact{
 		$this->subscriber = new Subscriber($this);
 
 		$this->apiurl = rtrim($this->apiurl, '/') . '/';
+	}
+
+	public function call($url, $params, $method){
+		curl_setopt($this->curl, CURLOPT_URL, $this->apiurl . $url);
+		
+        // curl_setopt($this->curl, CURLOPT_POSTFIELDS, ['data'=>json_encode($params, JSON_PRETTY_PRINT)]);
+		curl_setopt($this->curl, CURLOPT_HTTPGET, TRUE);
+
+		$now = DateTime::createFromFormat('U.u', microtime(true));
+		$local = $now->setTimeZone(new DateTimeZone('America/Santiago'));
+		$token  = $this->apikey;                 // base64_encode(random_bytes(12));
+		$secret = $this->secret; // base64_encode(random_bytes(24));
+		
+		$stamp = $local->format("Y-m-d H:i:s.u");
+		$value = $token.$stamp.$secret;
+		
+		$sig    = hash('SHA256', $value);
+		echo $value;
+		echo '/';
+		
+		echo $sig;
+
+		curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
+			"Authorization: Bearer $token",
+			"Sig: $sig",
+			"Stamp: $stamp"
+		]);
+		$server_output = curl_exec($this->curl);
+
+		if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE)!='200') {
+			throw new \Exception($server_output);
+		}
+
+		return json_decode($server_output);
+
 	}
 
     public function saludo($api_key = null){
