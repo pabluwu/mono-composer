@@ -32,23 +32,54 @@ $m = new Monocontact('t-MduXc11yE5IHD4a5cVt8x4aaG', 's-XxCyXLQFaT58DTSfyZrCCGwg3
 // }
 
 //Agregar contactos.
+// try {
+//     print_r($m->contact->create([
+// 		'code' => 'pablo@pablo.cl',
+//         'firstname' => 'pablo',
+//         'lastname' => 'lopez',
+//         'company' => 'taller',
+//         'title' => 'a',
+//         'phone' => 920251638,
+//         'address' => 'caller 1',
+//         'city' => 'quillota',
+//         'region' => 'valparaiso',
+//         'country' => 'chile',
+// 		//'contact' => ['email'=>'juanita.mucho.disero2@gmail.com', 'firstname'=>'Juanita', 'lastname'=>'Mucho Dinero'],
+// 		'listing' => 993,
+// 	]));
+// }catch (Exception $e){
+//     echo 'Excepción', $e->getMessage(), '\n';
+// }
+
+//Agregar lista
+// try {
+//     print_r($m->listing->create([
+// 		'name' => 'lista desde composer',
+//         'area' => 3
+// 	]));
+// }catch (Exception $e){
+//     echo 'Excepción', $e->getMessage(), '\n';
+// }
+
+//Agregar subscriber con lista
+// try {
+//     print_r($m->subscriber->createWithList([
+// 		'code' => 'pablo@pablo.cl',
+//         'listing' => 'lista desde composer'
+// 	]));
+// }catch (Exception $e){
+//     echo 'Excepción', $e->getMessage(), '\n';
+// }
+
+//Agregar multiple subscribers
 try {
-    print_r($m->contact->create([
-		'code' => 'pablo@pablo.cl',
-        'firstname' => 'pablo',
-        'lastname' => 'lopez',
-        'company' => 'taller',
-        'title' => 'a',
-        'phone' => 920251638,
-        'address' => 'caller 1',
-        'city' => 'quillota',
-        'region' => 'valparaiso',
-        'country' => 'chile',
-		//'contact' => ['email'=>'juanita.mucho.disero2@gmail.com', 'firstname'=>'Juanita', 'lastname'=>'Mucho Dinero'],
-		'listing' => 993,
+    print_r($m->subscriber->createMultipleWithList([
+		'contacto' => [
+            ['code' => 'tito4408@gmail.com'], 
+            ['code' => 'johnodomg35@gmail.com'], 
+            ['code' => 'pablo.sepulve@gmail.com']],
+        'listing' => 'lista desde composer'
 	]));
 }catch (Exception $e){
     echo 'Excepción', $e->getMessage(), '\n';
 }
-
-
