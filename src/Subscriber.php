@@ -9,7 +9,7 @@ class Subscriber extends MonoModel {
 	public function createWithList($columns) {
 		if (!$this->model) throw new \Exception('You must enter a model');;
 		$_params = $columns;
-		print_r ($_params);
+		// print_r ($_params);
 		$url = $this->model.'/with-list';
 		return $this->master->call($url, $_params, 'post');
 	}
@@ -17,7 +17,7 @@ class Subscriber extends MonoModel {
 	public function createMultipleWithList($columns) {
 		if (!$this->model) throw new \Exception('You must enter a model');;
 		$_params = $columns;
-		print_r ($_params);
+		// print_r ($_params);
 		$url = $this->model.'/multiple/with-list';
 		return $this->master->call($url, $_params, 'post');
 	}

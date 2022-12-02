@@ -8,45 +8,95 @@ use mono\Monocontact;
 $apiurl = 'http://127.0.0.1:8000/v1.1/';
 $m = new Monocontact('t-MduXc11yE5IHD4a5cVt8x4aaG', 's-XxCyXLQFaT58DTSfyZrCCGwg3wIY8USJcnf59NQ7fBjcQmWBRUnNXeWejRkZFRmQH', $apiurl);
 
-// Probar listing.
+
+//Métodos get
+
+// print_r($m->listing->listing());
+// print_r($m->listing->getByName('Todos los contactos'));
+// print_r($m->contact->getContactFieldByName('test packagist'));
+// print_r($m->listing->view(1));
+// print_r($m->listing->viewFromList(995));
+// print_r($m->contact->viewContactsFields());
+
+// // Probar métodos con error.
+// function testListing($m){
+//     try {
+//         return $m->listing->listing();
+//     }catch (Exception $e){
+//         echo 'Excepción', $e->getMessage(), '\n';
+//     }
+// }
+
+
+//Métodos POST 
+
+//Agregar contacto personalizado.
 // try {
-//     print_r($m->contact->listing());
-//     // $m->contact->listing();
+//     print_r($m->contact->createContactField([
+//             "name"=> "test packagist",
+//             "type"=> 1,
+//             "enable_crm"=> 0,
+//             "default_value"=> "test",
+//             "options"=>['_1'=>1]
+//     ]));
 // }catch (Exception $e){
 //     echo 'Excepción', $e->getMessage(), '\n';
 // }
 
-//Probar view.
+//Agregar campos personalizados a un contacto, funciona con multiples contactos.
 // try {
-//     print_r($m->contact->view(2742733));
-//     // $m->contact->listing();
+//     //Un solo contacto
+//     print_r($m->contact->addContactField([
+//             [
+//                 "id"=> 2742792,
+//                 "fields"=> ["_1"=>"20481768-5"]
+//             ]
+//     ]));
+
+//     //Multiple contactos.
+//     print_r($m->contact->addContactField([
+//         [
+//             "id"=> 2742792,
+//             "fields"=> ["_1"=>"20481768-5"]
+//         ],
+//         [
+//             "id"=> 2742791,
+//             "fields"=> ["_2"=>"20481768-6"]
+//         ]
+// ]));
 // }catch (Exception $e){
 //     echo 'Excepción', $e->getMessage(), '\n';
 // }
 
-//Ver contactos de una lista.
-// try {
-//     print_r($m->listing->viewFromList(991));
-// }catch (Exception $e){
-//     echo 'Excepción', $e->getMessage(), '\n';
-// }
+//Modificar campo personalizado de un contacto
+try {
+    //Un solo contacto
+    print_r($m->contact->updateContactFieldFromContact([
+            
+            "id"=> 2742792,
+            "fields"=> ["_1"=>"1111111-1"]
+            
+    ]));
+
+}catch (Exception $e){
+    echo 'Excepción', $e->getMessage(), '\n';
+}
 
 //Agregar contactos.
 // try {
-//     print_r($m->contact->create([
-// 		'code' => 'pablo@pablo.cl',
-//         'firstname' => 'pablo',
-//         'lastname' => 'lopez',
-//         'company' => 'taller',
-//         'title' => 'a',
-//         'phone' => 920251638,
-//         'address' => 'caller 1',
-//         'city' => 'quillota',
-//         'region' => 'valparaiso',
-//         'country' => 'chile',
-// 		//'contact' => ['email'=>'juanita.mucho.disero2@gmail.com', 'firstname'=>'Juanita', 'lastname'=>'Mucho Dinero'],
-// 		'listing' => 993,
-// 	]));
+    // print_r($m->contact->create([
+	// 	'code' => 'pablo@pablo.cl',
+    //     'firstname' => 'pablo',
+    //     'lastname' => 'lopez',
+    //     'company' => 'taller',
+    //     'title' => 'a',
+    //     'phone' => 920251638,
+    //     'address' => 'caller 1',
+    //     'city' => 'quillota',
+    //     'region' => 'valparaiso',
+    //     'country' => 'chile',
+	// 	'listing' => 993,
+	// ]));
 // }catch (Exception $e){
 //     echo 'Excepción', $e->getMessage(), '\n';
 // }
@@ -72,14 +122,14 @@ $m = new Monocontact('t-MduXc11yE5IHD4a5cVt8x4aaG', 's-XxCyXLQFaT58DTSfyZrCCGwg3
 // }
 
 //Agregar multiple subscribers
-try {
-    print_r($m->subscriber->createMultipleWithList([
-		'contacto' => [
-            ['code' => 'tito4408@gmail.com'], 
-            ['code' => 'johnodomg35@gmail.com'], 
-            ['code' => 'pablo.sepulve@gmail.com']],
-        'listing' => 'lista desde composer'
-	]));
-}catch (Exception $e){
-    echo 'Excepción', $e->getMessage(), '\n';
-}
+// try {
+//     print_r($m->subscriber->createMultipleWithList([
+// 		'contacto' => [
+//             ['code' => 'tito4408@gmail.com'], 
+//             ['code' => 'johnodomg35@gmail.com'], 
+//             ['code' => 'pablo.sepulve@gmail.com']],
+//         'listing' => 'lista desde composer'
+// 	]));
+// }catch (Exception $e){
+//     echo 'Excepción', $e->getMessage(), '\n';
+// }
