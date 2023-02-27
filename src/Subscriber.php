@@ -2,6 +2,7 @@
 
 namespace mono;
 
+//No Longer Works
 class Subscriber extends MonoModel {
 
 	protected $model = 'subscriber';
